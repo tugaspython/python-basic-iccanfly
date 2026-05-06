@@ -19,7 +19,7 @@ GITHUB_TO_EMAIL_MAP = {
 }
 
 # ==============================================================================
-# BAGIAN LOGIKA SKRIP - Sebaiknya tidak perlu diubah
+# BAGIAN LOGIKA SKRIP
 # ==============================================================================
 
 # --- Langkah 1: Ambil Variabel dari GitHub Actions Environment ---
@@ -33,24 +33,27 @@ if not MOODLE_TOKEN or not GITHUB_USERNAME:
 # --- Langkah 2: Hitung Nilai dari Hasil Tes ---
 grade = 0
 feedback = "Feedback belum tersedia."
+TOTAL_SOAL = 20  # Mengunci total soal menjadi 20 sesuai instruksi
 
 try:
     with open('report.json') as f:
         report = json.load(f)
     
-    total_tests = report['summary'].get('total', 0)
+    # Hanya mengambil jumlah test yang berstatus 'passed' (lulus)
     passed_tests = report['summary'].get('passed', 0)
-    failed_tests = total_tests - passed_tests
     
-    if total_tests > 0:
-        grade = (passed_tests / total_tests) * 100
+    # Menghitung test yang salah/gagal dari total soal yang dikunci
+    failed_tests = TOTAL_SOAL - passed_tests
     
-    feedback = f"Hasil Tes Otomatis:\n- Total Tes: {total_tests}\n- Lulus: {passed_tests}\n- Gagal: {failed_tests}\n\nNilai Anda: {grade:.2f}"
-    print(f"✅ Berhasil menghitung nilai: {grade}")
+    # Menghitung nilai skala 100
+    grade = (passed_tests / TOTAL_SOAL) * 100
+    
+    feedback = f"Hasil Tes Otomatis:\n- Total Soal: {TOTAL_SOAL}\n- Benar: {passed_tests}\n- Salah/Gagal: {failed_tests}\n\nNilai Anda: {grade:.2f} / 100"
+    print(f"✅ Berhasil menghitung nilai: {grade} (Benar {passed_tests} dari {TOTAL_SOAL} soal)")
 
 except FileNotFoundError:
     grade = 0
-    feedback = "Gagal menjalankan tes. File `report.json` tidak ditemukan. Pastikan tes Anda berjalan dengan benar."
+    feedback = f"Gagal menjalankan tes. File `report.json` tidak ditemukan. Total Soal: {TOTAL_SOAL}, Benar: 0, Salah: {TOTAL_SOAL}. Nilai: 0.00"
     print("⚠️ Warning: File report.json tidak ditemukan, nilai diatur ke 0.")
 except Exception as e:
     grade = 0
@@ -74,7 +77,7 @@ search_params = {
     'criteria[0][value]': moodle_email
 }
 
-user_id = None # <-- DIPERBAIKI: Nama variabel disamakan
+user_id = None 
 try:
     response = requests.get(f"{MOODLE_URL}/webservice/rest/server.php", params=search_params)
     response.raise_for_status()
@@ -82,7 +85,7 @@ try:
     if not users:
         print(f"❌ Error: Tidak ada pengguna Moodle yang ditemukan dengan email '{moodle_email}'.")
         exit(1)
-    user_id = users[0]['id'] # <-- DIPERBAIKI: Mengisi variabel user_id
+    user_id = users[0]['id'] 
     print(f"✅ Berhasil menemukan Moodle User ID: {user_id}")
 except Exception as e:
     print(f"❌ Error Kritis saat mencari user Moodle: {e}")
@@ -91,15 +94,15 @@ except Exception as e:
     exit(1)
 
 # --- Langkah 4: Kirim Nilai dan Feedback ke Moodle ---
-if user_id: # <-- DIPERBAIKI: Sekarang kondisi ini akan benar (true)
-    print(f"Mengirimkan nilai {grade:.2f} (METODE BARU) untuk user {user_id} ke tugas {ASSIGNMENT_ID}...")
+if user_id: 
+    print(f"Mengirimkan nilai {grade:.2f} untuk user {user_id} ke tugas {ASSIGNMENT_ID}...")
     
     grade_params = {
         'wstoken': MOODLE_TOKEN,
         'wsfunction': 'mod_assign_save_grade',
         'moodlewsrestformat': 'json',
         'assignmentid': ASSIGNMENT_ID,
-        'userid': user_id, # <-- DIPERBAIKI: Menggunakan variabel user_id yang sudah terisi
+        'userid': user_id, 
         'grade': grade,
         'attemptnumber': -1,
         'addattempt': 0,
