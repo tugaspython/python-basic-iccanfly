@@ -1,36 +1,78 @@
-# test_kalkulator.py
-
-# Impor fungsi yang akan dites dari file mahasiswa
+import pytest
 from kalkulator import tambah, kurang, kali, bagi
 
-# Tes untuk fungsi tambah
+# ==========================================
+# TEST UNTUK FUNGSI TAMBAH (5 Kasus)
+# ==========================================
 def test_tambah():
+    # 1. Penjumlahan dua angka positif
     assert tambah(5, 3) == 8
-    assert tambah(-1, 1) == 0
-    assert tambah(-5, -5) == -10
-    assert tambah(10, 0) == 10
+    
+    # 2. Penjumlahan dua angka negatif
+    assert tambah(-5, -3) == -8
+    
+    # 3. Penjumlahan angka positif dan negatif
+    assert tambah(5, -3) == 2
+    
+    # 4. Penjumlahan dengan angka nol
+    assert tambah(0, 7) == 7
+    
+    # 5. Penjumlahan bilangan desimal (float)
+    assert tambah(2.5, 3.1) == 5.6
 
-# Tes untuk fungsi kurang
+# ==========================================
+# TEST UNTUK FUNGSI KURANG (5 Kasus)
+# ==========================================
 def test_kurang():
-    assert kurang(10, 5) == 5
-    assert kurang(-1, 1) == -2
+    # 6. Pengurangan dua angka positif
+    assert kurang(10, 4) == 6
+    
+    # 7. Pengurangan dua angka negatif
+    assert kurang(-10, -4) == -6
+    
+    # 8. Pengurangan angka kecil dengan angka besar
     assert kurang(5, 10) == -5
-    assert kurang(0, 5) == -5
+    
+    # 9. Pengurangan dengan angka nol
+    assert kurang(8, 0) == 8
+    
+    # 10. Pengurangan bilangan desimal (float)
+    assert kurang(5.5, 2.2) == 3.3
 
-# Tes untuk fungsi kali
+# ==========================================
+# TEST UNTUK FUNGSI KALI (5 Kasus)
+# ==========================================
 def test_kali():
-    assert kali(3, 4) == 12
-    assert kali(-2, 5) == -10
+    # 11. Perkalian dua angka positif
+    assert kali(4, 5) == 20
+    
+    # 12. Perkalian angka negatif dan positif
+    assert kali(-4, 5) == -20
+    
+    # 13. Perkalian dua angka negatif
+    assert kali(-4, -5) == 20
+    
+    # 14. Perkalian dengan angka nol
     assert kali(7, 0) == 0
-    assert kali(-3, -3) == 9
+    
+    # 15. Perkalian bilangan desimal (float)
+    assert kali(2.5, 2.0) == 5.0
 
-# Tes untuk fungsi bagi
+# ==========================================
+# TEST UNTUK FUNGSI BAGI (5 Kasus)
+# ==========================================
 def test_bagi():
-    assert bagi(10, 2) == 5
-    assert bagi(-8, 4) == -2
-    assert bagi(9, 2) == 4.5
-
-# Tes untuk kasus khusus pembagian dengan nol
-def test_bagi_dengan_nol():
-    assert bagi(10, 0) == "Error: Pembagian dengan nol"
-    assert bagi(0, 0) == "Error: Pembagian dengan nol"
+    # 16. Pembagian angka positif yang habis dibagi
+    assert bagi(20, 4) == 5.0
+    
+    # 17. Pembagian angka negatif dengan positif
+    assert bagi(-20, 4) == -5.0
+    
+    # 18. Pembagian angka nol dengan angka lain
+    assert bagi(0, 5) == 0.0
+    
+    # 19. Pembagian yang menghasilkan bilangan desimal
+    assert bagi(5.5, 2.0) == 2.75
+    
+    # 20. Penanganan error: Pembagian dengan nol
+    assert bagi(5, 0) == "Error: Pembagian dengan nol"
