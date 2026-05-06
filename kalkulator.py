@@ -1,6 +1,6 @@
 def tambah(a, b):
   """Fungsi ini menerima dua angka dan mengembalikan hasil penjumlahannya."""
-return a + b
+  return a + b
 
 def kurang(a, b):
   """Fungasi ini menerima dua angka dan mengembalikan hasil pengurangannya."""
