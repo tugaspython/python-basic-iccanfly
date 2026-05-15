@@ -1,25 +1,20 @@
-# Tugas 1: Membuat Fungsi Kalkulator Sederhana
+# Tugas : Sistem Validasi Password
 
 ## Deskripsi
-Selamat datang di tugas pemrograman pertama Anda! Pada tugas ini, Anda diminta untuk melengkapi beberapa fungsi dasar matematika untuk membuat sebuah modul kalkulator sederhana menggunakan Python.
+Buatlah sebuah fungsi bernama validasi_password(password) yang menerima input berupa string. Fungsi harus mengembalikan nilai boolean True jika password kuat, dan False jika lemah.
+Sebuah password dikatakan kuat jika memenuhi seluruh 5 syarat berikut:
+
+1. Panjang minimal 8 karakter dan maksimal 20 karakter.
+
+2. Tidak boleh mengandung karakter spasi (" ").
+
+3. Mengandung minimal 1 huruf besar (A-Z).
+
+4. Mengandung minimal 1 angka (0-9).
+
+5. Mengandung minimal 1 simbol khusus dari karakter berikut: !@#$%^&*
 
 ## Instruksi Pengerjaan
 
-1.  Buka dan edit file `kalkulator.py`.
-2.  Anda akan menemukan 4 fungsi yang sudah kami siapkan kerangkanya: `tambah`, `kurang`, `kali`, dan `bagi`.
-3.  Lengkapi logika di dalam setiap fungsi tersebut agar dapat berjalan sesuai fungsinya.
-4.  **PENTING:** Jangan mengubah nama fungsi atau jumlah parameter yang sudah ada. Autograder akan memanggil fungsi-fungsi tersebut dengan nama yang sudah ditentukan.
-
-### Detail Fungsi:
-* **`tambah(a, b)`**: Harus mengembalikan hasil dari `a + b`.
-* **`kurang(a, b)`**: Harus mengembalikan hasil dari `a - b`.
-* **`kali(a, b)`**: Harus mengembalikan hasil dari `a * b`.
-* **`bagi(a, b)`**:
-    * Harus mengembalikan hasil dari `a / b`.
-    * **Kasus Khusus:** Jika `b` adalah `0`, fungsi harus mengembalikan string `"Error: Pembagian dengan nol"`.
-
-## Cara Penilaian
-Pekerjaan Anda akan dinilai secara otomatis. Sistem akan menjalankan serangkaian tes untuk setiap fungsi yang Anda buat. Nilai akhir Anda akan dihitung berdasarkan jumlah tes yang berhasil dilewati.
-
-## Cara Mengirim Tugas
-Cukup lakukan `git push` pada setiap perubahan yang ingin Anda simpan dan nilai. Sistem akan secara otomatis mengambil versi terakhir dari kode Anda untuk dinilai. Anda bisa melakukan `push` berkali-kali sebelum tenggat waktu.
+1.  Buka dan edit file `jawaban_mahasiswa.py`.
+2.  **PENTING:** Jangan mengubah apapun selain push jawaban dari file `jawaban_mahasiswa.py`.
